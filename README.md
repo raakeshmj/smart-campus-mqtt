@@ -1,37 +1,112 @@
-# Smart Campus Monitoring using MQTT & Node-RED
+# Smart Campus Monitoring System using MQTT and Node-RED
 
-## Description
-This project implements a publish-subscribe system using MQTT and Node-RED. It simulates a smart campus environment with sensors publishing temperature, air quality, and system status data.
+## Overview
+This project implements a publish–subscribe system using the MQTT protocol and Node-RED. It simulates a smart campus environment where multiple sensors publish real-time data, and a subscriber processes and visualizes this data through a dashboard.
 
-## Features
-* **Multiple publishers:** Handles temperature, air quality, and status data streams.
-* **Wildcard subscriber:** Utilizes `campus/#` to capture all related topics efficiently.
-* **Real-time dashboard visualization:** Displays live metrics through an intuitive interface.
-* **QoS demonstration:** Implements varying Quality of Service levels based on data criticality.
-* **Retained message support:** Ensures persistence of critical system states.
+## Objectives
+- Implement a publish–subscribe architecture using MQTT
+- Use multiple publishers and a wildcard subscriber
+- Visualize real-time data using a dashboard
+- Demonstrate QoS levels and retained messages
 
-## Technologies Used
-* **Node-RED**
-* **Mosquitto MQTT Broker**
-* **Node-RED Dashboard**
+## System Architecture
 
-## How It Works
-1. **Simulation:** Inject nodes simulate physical sensors.
-2. **Routing:** The MQTT broker handles routing the published messages.
-3. **Subscription:** A central subscriber listens for all campus data using a wildcard topic.
-4. **Visualization:** The Node-RED Dashboard displays the live data streams.
+### Publishers
+The system includes three publishers:
+- Temperature sensor (classroom)
+- Air quality sensor (lab)
+- System status publisher
 
-## Technical Configuration
+Each publisher uses an Inject node and a Function node to generate and publish data.
+
+### MQTT Broker
+- Broker used: Mosquitto
+- Runs locally on port 1883
+- Responsible for routing messages between publishers and subscribers
+
+### Subscriber
+- A single MQTT IN node subscribes using the wildcard topic:
+
+campus/#
+
+- Switch nodes filter messages based on topics and route them to appropriate dashboard components.
 
 ### Topics Used
-* `campus/classroom/temperature`
-* `campus/lab/airquality`
-* `campus/status`
 
-### Quality of Service (QoS) Levels
-* **QoS 0** (At most once) -> Temperature
-* **QoS 1** (At least once) -> Air Quality
-* **QoS 2** (Exactly once) -> Status
+campus/classroom/temperature
+campus/lab/airquality
+campus/status
 
-### Retained Messages
-The `campus/status` topic utilizes retained messages to ensure that any new subscribers immediately receive the last known system state upon connection.
+
+## Dashboard
+The Node-RED dashboard displays:
+- Temperature using a gauge
+- Air quality using a line chart
+- System status using a text field
+
+The dashboard updates in real time as messages are received.
+
+## QoS Implementation
+Different Quality of Service (QoS) levels are used:
+- QoS 0: Temperature (fast, no guarantee)
+- QoS 1: Air quality (at least once delivery)
+- QoS 2: Status (exactly once delivery)
+
+## Retained Messages
+The status topic uses retained messages so that new subscribers immediately receive the latest system state.
+
+## Project Structure
+
+smart-campus-mqtt/
+│
+├── flows.json
+├── README.md
+├── screenshots/
+│ ├── flow.png
+│ ├── dashboard.png
+│
+├── logs/
+│ └── logs.txt
+│
+└── report/
+└── report.md
+
+
+## How to Run
+
+### Prerequisites
+- Node.js
+- Node-RED
+- Mosquitto MQTT Broker
+
+### Steps
+1. Start Mosquitto broker:
+
+mosquitto
+
+2. Start Node-RED:
+
+node-red
+
+3. Open Node-RED:
+
+http://localhost:1880
+
+4. Import `flows.json`
+5. Click Deploy
+6. Open dashboard:
+
+http://localhost:1880/ui
+
+
+## Sample Output
+
+Example messages:
+
+campus/classroom/temperature → 24.56
+campus/lab/airquality → 110
+campus/status → System Active
+
+
+## Conclusion
+This project demonstrates the MQTT publish–subscribe model with multiple publishers, a wildcard subscriber, and real-time data visualization. It also showcases QoS levels and retained messages for reliable communication.
