@@ -1,4 +1,6 @@
 # Smart Campus Monitoring System using MQTT and Node-RED
+## Demo Video
+[Watch the demo video](https://drive.google.com/file/d/1SNplAIE0ZmRFA6LldQxY9suRqpyOWr7U/view?usp=drive_link)
 ## Demonstration
 This project demonstrates a working MQTT-based publish–subscribe system with real-time dashboard visualization.
 
