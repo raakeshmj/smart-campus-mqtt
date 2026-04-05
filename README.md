@@ -1,4 +1,6 @@
 # Smart Campus Monitoring System using MQTT and Node-RED
+## Demonstration
+This project demonstrates a working MQTT-based publish–subscribe system with real-time dashboard visualization.
 
 ## Overview
 This project implements a publish–subscribe system using the MQTT protocol and Node-RED. It simulates a smart campus environment where multiple sensors publish real-time data, and a subscriber processes and visualizes this data through a dashboard.
