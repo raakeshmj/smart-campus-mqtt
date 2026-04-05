@@ -1,4 +1,4 @@
-# smart-campus-mqtt
+
 📌 Smart Campus Monitoring using MQTT & Node-RED
 🔹 Description
 
